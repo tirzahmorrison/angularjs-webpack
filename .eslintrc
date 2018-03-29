@@ -1,6 +1,8 @@
 {
   "extends": [
-    "standard"
+    "google"
   ],
-  "rules": {}
+  "rules": {
+    
+  }
 }
