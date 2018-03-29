@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // Require  html-webpack-plugin plugin
-
+const glob = require("glob");
 module.exports = {
-  entry: __dirname + "/src/index.js", // webpack entry point. Module to start building dependency graph
+  entry:glob.sync("./src/*.js"), // webpack entry point. Module to start building dependency graph
   output: {
     path: __dirname + '/public/dist', // Folder to store generated bundle
     filename: 'bundle.js',  // Name of generated bundle after build
