@@ -13,14 +13,17 @@ app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
     }).then(() => {
         $scope.wagers = []
         $scope.values.forEach((value) => {
-            let wager = []
+            let wager = {
+                value: value, 
+                clues: []
+            }
             $scope.categories.forEach((category) => {
                 $http({
                     url: BASE_URL + `/clues?value=${value}&category=${category.id}`
                 }).then(response => {
                     console.log("clues", response.data)
                     let i = Math.random() * response.data.length
-                    wager.push(response.data[i])
+                    wager.clues.push(response.data[i])
                 })
 
             })
