@@ -10,22 +10,24 @@ app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
         console.log(response)
         console.log(response.data)
         $scope.categories = response.data.map(c => c.category)
+    }).then(() => {
+        $scope.wagers = []
+        $scope.values.forEach((value) => {
+            let wager = []
+            $scope.categories.forEach((category) => {
+                $http({
+                    url: BASE_URL + `/clues?value=${value}&category=${category.id}`
+                }).then(response => {
+                    console.log("clues", response.data)
+                    let i = Math.random() * response.data.length
+                    wager.push(response.data[i])
+                })
 
-    })
-    $scope.wagers = []
-    $scope.values.forEach((value) => {
-        let wager = []
-        $scope.categories.forEach((category) => {
-            $http({
-                url: BASE_URL + `/clues?value=${value}&category=${category.id}`
-            }).then(response => {
-                console.log("clues", response.data)
-                let i = Math.random() * response.data.length
-                wager.push(response.data[i])
             })
-
+            $scope.wagers.push(wager)
         })
-        $scope.wagers.push(wager)
+
     })
+
     console.dir($scope)
 }])
