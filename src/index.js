@@ -1,7 +1,7 @@
 const BASE_URL = "http://jservice.io/api"
 const app = angular.module("main", ["customFilters"]);
 
-app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
+app.controller("mainController", ["$scope", "$http", "$interval", ($scope, $http, $interval) => {
     $scope.values = [100, 200, 300, 400, 500]
 
     $scope.currentPlayer = {
@@ -47,4 +47,19 @@ app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
         console.log(value)
     }
     console.dir($scope)
+
+    $scope.seconds = "00"
+
+    const timerFunc = () => {
+        let currentSecond = Number($scope.seconds) + 1
+        if (currentSecond < 10) {
+            currentSecond = "0" + currentSecond
+        }
+        $scope.seconds = currentSecond
+        if (currentSecond === "00") {
+            $scope.seconds = "00"
+            timeOut()
+        }
+    }
+    $interval(timerFunc, 1000)
 }])
