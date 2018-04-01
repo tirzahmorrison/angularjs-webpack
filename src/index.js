@@ -1,9 +1,9 @@
 const BASE_URL = "http://jservice.io/api"
-const values = [100, 200, 300, 400, 500]
 const app = angular.module("main", ["customFilters"]);
 
 app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
-    
+    $scope.values = [100, 200, 300, 400, 500]
+
     $http({
         url: BASE_URL + "/random?count=5"
       }).then(response => {
