@@ -12,22 +12,23 @@ app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
         $scope.categories = response.data.map(c => c.category)
     }).then(() => {
         $scope.wagers = []
-        $scope.values.forEach((value) => {
+        $scope.values.forEach((value, i) => {
             let wager = {
                 value: value,
                 clues: []
             }
-            $scope.categories.forEach((category) => {
+            $scope.wagers.push(wager)
+            $scope.categories.forEach((category, j) => {
                 $http({
                     url: BASE_URL + `/clues?category=${category.id}`
                 }).then(response => {
                     console.log("clues", response.data)
                     const clue = response.data.filter(c => c.value >= value)[0]
-                    wager.clues.push(clue)
+                    $scope.wagers[i].clues[j] = clue
                 })
 
             })
-            $scope.wagers.push(wager)
+            
         })
 
     })
