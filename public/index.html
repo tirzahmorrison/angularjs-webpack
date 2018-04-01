@@ -9,7 +9,7 @@
 </head>
 
 <body ng-app="main" ng-controller="mainController">
-  <section class="board">
+  <section class="board" ng-hide="showClue">
     <table>
       <thead>
         <tr>
@@ -27,6 +27,23 @@
         </tr>
       </tfoot>
     </table>
+  </section>
+  <section class="answerBox" ng-show="showClue">
+    <section>
+      <p>{{currentClue.category.title}}</p>
+      <p>{{currentWager}}</p>
+    </section>
+    <h1>{{currentClue.question}}</h1>
+    <section>
+      <section class="playerInfo">
+        <p>{{currentPlayer}}</p>
+    <input type="text" ng-model="answer" placeholder="answer"/>
+    <button ng-click="checkAnswer()">Submit Answer</button>
+  </section>
+  <section class="timer">
+    <p>00:00</p>
+  </section>
+  </section>
   </section>
 
 

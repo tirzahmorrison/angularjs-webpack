@@ -1,1 +1,3 @@
-<td ng-repeat="clue in wager.clues track by $index">${{wager.value}}</td>
+<td ng-repeat="clue in wager.clues track by $index">
+    <p ng-click="displayClue(clue, wager.value)">${{wager.value}}</p>
+</td>

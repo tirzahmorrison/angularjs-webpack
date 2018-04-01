@@ -14,7 +14,7 @@ app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
         $scope.wagers = []
         $scope.values.forEach((value) => {
             let wager = {
-                value: value, 
+                value: value,
                 clues: []
             }
             $scope.categories.forEach((category) => {
@@ -31,6 +31,11 @@ app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
         })
 
     })
-
+    $scope.showClue = false
+    $scope.displayClue = (clue, value) => {
+        $scope.currentClue = clue
+        $scope.currentWager = value
+        $scope.showClue = true
+    }
     console.dir($scope)
 }])
