@@ -6,15 +6,21 @@ app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
 
     $http({
         url: BASE_URL + "/random?count=5"
-      }).then(response => {
+    }).then(response => {
         console.log(response)
         console.log(response.data)
         $scope.categories = response.data.map(c => c.category)
-      })
-      $scope.categories.forEach((category) => {
-    $http({
-        url: BASE_URL + `/clues?value=${}&category=${}`
+
     })
-})
-      console.dir($scope)
-    }])
+    $scope.values.forEach((value) => {
+    $scope.categories.forEach((category) => {
+            $http({
+                url: BASE_URL + `/clues?value=${value}&category=${category.id}`
+            }).then(response => {
+                console.log("clues", response.data)
+                $scope.wagers
+            })
+        })
+    })
+    console.dir($scope)
+}])
