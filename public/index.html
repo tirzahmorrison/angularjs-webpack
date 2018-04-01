@@ -23,7 +23,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="5">{{currentPlayer}} Choose A Category</td>
+          <td colspan="5">{{currentPlayer.name}} Choose A Category</td>
         </tr>
       </tfoot>
     </table>
@@ -36,7 +36,7 @@
     <h1>{{currentClue.question}}</h1>
     <section>
       <section class="playerInfo">
-        <p>{{currentPlayer}}</p>
+        <p>{{currentPlayer.name}}</p>
     <input type="text" ng-model="answer" placeholder="answer"/>
     <button ng-click="checkAnswer()">Submit Answer</button>
   </section>
