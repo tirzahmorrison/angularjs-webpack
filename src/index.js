@@ -19,11 +19,11 @@ app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
             }
             $scope.categories.forEach((category) => {
                 $http({
-                    url: BASE_URL + `/clues?value=${value}&category=${category.id}`
+                    url: BASE_URL + `/clues?category=${category.id}`
                 }).then(response => {
                     console.log("clues", response.data)
-                    let i = Math.random() * response.data.length
-                    wager.clues.push(response.data[i])
+                    const clue = response.data.filter(c => c.value >= value)[0]
+                    wager.clues.push(clue)
                 })
 
             })
@@ -32,6 +32,7 @@ app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
 
     })
     $scope.showClue = false
+    $scope.checkAnswer = () => {$scope.showClue = false}
     $scope.displayClue = (clue, value) => {
         console.dir(clue)
         $scope.currentClue = clue
