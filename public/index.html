@@ -1,28 +1,43 @@
 <!DOCTYPE html>
 <html>
-  <head lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Angularjs Webpack</title>
-    <link rel="stylesheet" href="/screen.css">
-  </head>
-  <body ng-app="main" ng-controller="mainController">
-    <section class="board">
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tirzah's Geopardy</title>
+  <link rel="stylesheet" href="/screen.css">
+</head>
+
+<body ng-app="main" ng-controller="mainController">
+  <section class="board">
+    <table>
       <thead>
         <tr>
-          <td ng-repeat="category in categories track by $index"></td>
+          <td ng-repeat="category in categories track by $index" ng-include="'./templates/category.html'">
+          </td>
         </tr>
       </thead>
-    </section>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-  </body>
+      <tbody>
+        <tr ng-repeat="wager in wagers track by $index" ng-include="'./templates/wagerRow.html'">
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5">{{currentPlayer}} Choose A Category</td>
+        </tr>
+      </tfoot>
+    </table>
+  </section>
+
+
+
+
+
+
+
+
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</body>
+
 </html>
