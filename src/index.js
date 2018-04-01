@@ -33,6 +33,7 @@ app.controller("mainController", ["$scope", "$http", ($scope, $http) => {
     })
     $scope.showClue = false
     $scope.displayClue = (clue, value) => {
+        console.dir(clue)
         $scope.currentClue = clue
         $scope.currentWager = value
         $scope.showClue = true
