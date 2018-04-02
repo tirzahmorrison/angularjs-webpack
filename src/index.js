@@ -38,7 +38,17 @@ app.controller("mainController", ["$scope", "$http", "$interval", ($scope, $http
 
     })
     $scope.showClue = false
-    $scope.checkAnswer = () => { $scope.showClue = false }
+    $scope.checkAnswer = () => { 
+        $scope.showClue = false 
+        $scope.timerStarted = false
+        $scope.seconds = "30"
+        if ($scope.currentClue.answer === $scope.answer) {
+            $scope.currentPlayer.score += $scope.currentWager
+        } else {
+            $scope.currentPlayer.score -= $scope.currentWager
+        }
+        $scope.answer = ""
+    }
     $scope.timeOut = () => { $scope.checkAnswer ("") }
     $scope.displayClue = (clue, value) => {
         console.dir(clue)
