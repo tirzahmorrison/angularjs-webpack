@@ -44,20 +44,26 @@ app.controller("mainController", ["$scope", "$http", "$interval", ($scope, $http
         $scope.currentClue = clue
         $scope.currentWager = value
         $scope.showClue = true
+        $scope.timerStarted = true
         console.log(value)
     }
     console.dir($scope)
 
-    $scope.seconds = "00"
+    $scope.seconds = "30"
+    $scope.timerStarted = false
 
     const timerFunc = () => {
-        let currentSecond = Number($scope.seconds) + 1
+        if (!$scope.timerStarted) {
+            return
+        }
+        let currentSecond = Number($scope.seconds) - 1
         if (currentSecond < 10) {
             currentSecond = "0" + currentSecond
         }
         $scope.seconds = currentSecond
         if (currentSecond === "00") {
-            $scope.seconds = "00"
+            $scope.seconds = "30"
+            $scope.timerStarted = false
             timeOut()
         }
     }
