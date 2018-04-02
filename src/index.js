@@ -39,6 +39,7 @@ app.controller("mainController", ["$scope", "$http", "$interval", ($scope, $http
     })
     $scope.showClue = false
     $scope.checkAnswer = () => { $scope.showClue = false }
+    $scope.timeOut = () => { $scope.checkAnswer ("") }
     $scope.displayClue = (clue, value) => {
         console.dir(clue)
         $scope.currentClue = clue
@@ -64,7 +65,7 @@ app.controller("mainController", ["$scope", "$http", "$interval", ($scope, $http
         if (currentSecond === "00") {
             $scope.seconds = "30"
             $scope.timerStarted = false
-            timeOut()
+            $scope.timeOut()
         }
     }
     $interval(timerFunc, 1000)
