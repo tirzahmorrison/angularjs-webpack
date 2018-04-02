@@ -9,7 +9,7 @@ app.controller("mainController", ["$scope", "$http", "$interval", ($scope, $http
         $scope.clueCounter = 0
 
         $scope.currentPlayer = {
-            name: "t-rex",
+            name: "T-Rex's",
             score: 0
         }
 
@@ -64,7 +64,7 @@ app.controller("mainController", ["$scope", "$http", "$interval", ($scope, $http
         $scope.showClue = false
         $scope.timerStarted = false
         $scope.seconds = "30"
-        if ($scope.currentClue.answer.toLowerCase() === $scope.answer.toLowerCase()) {
+        if ($scope.currentClue.answer.replace(/(\W|\S)/g, '').toLowerCase() === $scope.answer.replace(/(\W|\S)/g, '').toLowerCase()) {
             $scope.currentPlayer.score += $scope.currentWager
         } else {
             $scope.currentPlayer.score -= $scope.currentWager
