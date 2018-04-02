@@ -23,15 +23,18 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="5">{{currentPlayer.name}} ({{currentPlayer.score}})Choose A Category</td>
+          <td colspan="5">
+            {{currentPlayer.name}} ({{currentPlayer.score}})Choose A Category
+          <button class="reset" ng-click="reset()" ng-show="showReset">Reset</button>
+          </td>
         </tr>
       </tfoot>
     </table>
   </section>
   <section class="answerBox" ng-show="showClue">
     <section>
-      <p>{{currentClue.category.title}}</p>
-      <p>{{currentWager}}</p>
+      <p>Category: {{currentClue.category.title}}</p>
+      <p>Wager: {{currentWager}}</p>
     </section>
     <h1>{{currentClue.question}}</h1>
     <section>
@@ -53,7 +56,7 @@
 
 
 
-
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 </body>
 

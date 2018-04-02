@@ -4,42 +4,64 @@ const app = angular.module("main", ["customFilters"]);
 app.controller("mainController", ["$scope", "$http", "$interval", ($scope, $http, $interval) => {
     $scope.values = [100, 200, 300, 400, 500]
 
-    $scope.currentPlayer = {
-        name: "t-rex",
-        score: 0
-    }
+    $scope.reset = () => {
+        $scope.showReset = false
+        $scope.clueCounter = 0
 
-    $http({
-        url: BASE_URL + "/random?count=5"
-    }).then(response => {
-        console.log(response)
-        console.log(response.data)
-        $scope.categories = response.data.map(c => c.category)
-    }).then(() => {
-        $scope.wagers = []
-        $scope.values.forEach((value, i) => {
-            let wager = {
-                value: value,
-                clues: []
-            }
-            $scope.wagers.push(wager)
-            $scope.categories.forEach((category, j) => {
-                $http({
-                    url: BASE_URL + `/clues?category=${category.id}`
-                }).then(response => {
-                    console.log("clues", response.data)
-                    const clue = response.data.filter(c => c.value >= value)[0]
-                    $scope.wagers[i].clues[j] = clue
+        $scope.currentPlayer = {
+            name: "t-rex",
+            score: 0
+        }
+
+        $http({
+            url: BASE_URL + "/random?count=5"
+        }).then(response => {
+            console.log(response)
+            console.log(response.data)
+            $scope.categories = response.data.map(c => c.category)
+        }).then(() => {
+            let usedIds = []
+            $scope.wagers = []
+            $scope.values.forEach((value, i) => {
+                let wager = {
+                    value: value,
+                    clues: []
+                }
+                $scope.wagers.push(wager)
+                $scope.categories.forEach((category, j) => {
+                    $http({
+                        url: BASE_URL + `/clues?category=${category.id}`
+                    }).then(response => {
+                        console.log("clues", response.data)
+                        const clue = response.data.filter(c => c.value >= value && usedIds.indexOf(c.id) === -1)[0]
+                        usedIds.push(clue.id)
+                        $scope.wagers[i].clues[j] = clue
+                    })
+
                 })
 
             })
 
         })
-
-    })
+    }
+    $scope.reset()
+    $scope.hideClue = (clue) => {
+        $scope.clueCounter++
+        if ($scope.clueCounter === 25) {
+            $scope.showReset = true
+        }
+        $scope.wagers.forEach((wager, i) => {
+            wager.clues.forEach((c, j) => {
+                if (c.id === clue.id) {
+                    $scope.wagers[i].clues[j].hide = true
+                    console.log(c, clue)
+                }
+            })
+        })
+    }
     $scope.showClue = false
-    $scope.checkAnswer = () => { 
-        $scope.showClue = false 
+    $scope.checkAnswer = () => {
+        $scope.showClue = false
         $scope.timerStarted = false
         $scope.seconds = "30"
         if ($scope.currentClue.answer.toLowerCase() === $scope.answer.toLowerCase()) {
@@ -49,13 +71,14 @@ app.controller("mainController", ["$scope", "$http", "$interval", ($scope, $http
         }
         $scope.answer = ""
     }
-    $scope.timeOut = () => { $scope.checkAnswer ("") }
+    $scope.timeOut = () => { $scope.checkAnswer("") }
     $scope.displayClue = (clue, value) => {
         console.dir(clue)
         $scope.currentClue = clue
         $scope.currentWager = value
         $scope.showClue = true
         $scope.timerStarted = true
+        $scope.hideClue(clue)
         console.log(value)
     }
     console.dir($scope)
