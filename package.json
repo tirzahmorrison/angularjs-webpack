@@ -1,8 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "deploy": "surge ./public --domain geopardy.tmorrison.surge.sh",
-    "start": "webpack-dev-server --history-api-fallback --inline --progress  --mode development"
+    "deploy": "surge ./public/dist --domain geopardy.tmorrison.surge.sh",
+    "start": "webpack-dev-server --history-api-fallback --inline --progress  --mode development",
+    "build": "webpack"
   },
   "dependencies": {
     "browser-sync": "^2.23.6",

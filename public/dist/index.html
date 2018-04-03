@@ -1,12 +1,64 @@
 <!DOCTYPE html>
 <html>
-  <head lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Angularjs Webpack</title>
-    <link rel="stylesheet" href="/screen.css">
-  </head>
-  <body>
-    <h1>Hello, World!</h1>
-  <script type="text/javascript" src="/bundle.js"></script></body>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tirzah's Geopardy</title>
+  <link rel="stylesheet" href="/screen.css">
+</head>
+
+<body ng-app="main" ng-controller="mainController">
+  <section class="board" ng-hide="showClue">
+    <table>
+      <thead>
+        <tr>
+          <td ng-repeat="category in categories track by $index" ng-include="'./templates/category.html'">
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="wager in wagers track by $index" ng-include="'./templates/wagerRow.html'">
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5">
+            <p>Choose a Category and a Wager</p>
+            {{currentPlayer.name}} Score: $ {{currentPlayer.score}}  
+          <button class="reset" ng-click="reset()" ng-show="showReset">Reset</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </section>
+  <section class="answerBox" ng-show="showClue">
+    <section>
+      <p>Category: {{currentClue.category.title}}</p>
+      <p>Wager: {{currentWager}}</p>
+    </section>
+    <h1>{{currentClue.question}}</h1>
+    <section>
+      <section class="playerInfo">
+        <p>{{currentPlayer.name}}</p>
+    <input type="text" ng-model="answer" placeholder="answer"/>
+    <button ng-click="checkAnswer()">Submit Answer</button>
+  </section>
+  <section class="timer">
+    <p>00:{{seconds}}</p>
+  </section>
+  </section>
+  </section>
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script type="text/javascript" src="/bundle.js"></script></body>
+
 </html>

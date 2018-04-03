@@ -64,7 +64,7 @@ app.controller("mainController", ["$scope", "$http", "$interval", ($scope, $http
         $scope.showClue = false
         $scope.timerStarted = false
         $scope.seconds = "30"
-        if ($scope.currentClue.answer.toLowerCase() === $scope.answer.toLowerCase()) {
+        if ($scope.currentClue.answer.replace(/[^a-z0-9 ]/ig, '').toLowerCase() === $scope.answer.replace(/[^a-z0-9 ]/ig, '').toLowerCase()) {
             $scope.currentPlayer.score += $scope.currentWager
         } else {
             $scope.currentPlayer.score -= $scope.currentWager
